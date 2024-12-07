@@ -1,0 +1,6 @@
+select query_name, 
+    round(AVG(rating/position),2) as quality,
+    round(sum(rating<3)/count(query_name) * 100,2) as poor_query_percentage
+from Queries as q
+where query_name is not null
+group by q.query_name
