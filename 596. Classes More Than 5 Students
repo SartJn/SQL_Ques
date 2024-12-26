@@ -1,0 +1,8 @@
+with CTE as (
+    SELECT class, count(student) as stu
+    FROM Courses
+    GROUP BY class
+)
+SELECT class
+FROM CTE
+WHERE stu > 4
