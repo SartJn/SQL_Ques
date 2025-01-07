@@ -1,0 +1,10 @@
+with CTE as (
+    SELECT person_name, weight, SUM(weight) OVER(ORDER BY turn) AS cusum
+    FROM Queue
+    ORDER BY turn
+)
+SELECT person_name 
+FROM CTE
+WHERE cusum <= 1000
+ORDER BY cusum DESC
+LIMIT 1
