@@ -1,0 +1,25 @@
+# Write your MySQL query statement below
+WITH CTE AS (
+    SELECT u.name as res, count(*)
+    FROM MovieRating r
+    JOIN Users u
+        ON u.user_id = r.user_id
+    GROUP BY res
+    ORDER BY 2 DESC, res
+    LIMIT 1
+),
+
+CTEE as (
+    SELECT m.title as tit, avg(r.rating) as aver
+    FROM Movies m
+    JOIN MovieRating r
+        ON m.movie_id = r.movie_id
+    WHERE r.created_at BETWEEN '2020-02-01' AND '2020-02-29'
+    GROUP BY tit
+    ORDER BY 2 DESC, tit
+    LIMIT 1
+)
+
+SELECT res as results FROM CTE
+UNION ALL
+SELECT tit as result FROM CTEE
